@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import Image from 'react-bootstrap/Image'
+import './App.css'
 
 
 class App extends React.Component {
@@ -56,7 +58,7 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <h1>API CALLS</h1>
+        <h1>Type Your City in the Search Box!</h1>
 
         <form onSubmit={this.getCityData}>
           <label > Enter in a City:
@@ -69,10 +71,14 @@ class App extends React.Component {
         {
           this.state.error
             ? <p>{this.state.errorMessage}</p>
-            : <p>{this.state.cityData.display_name}</p>
+            : Object.keys(this.state.cityData).length > 0 &&
+            <ul>
+              <p id="title">{this.state.cityData.display_name}</p>
+              <Image class="img-fluid" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=13`} alt='Map of selected location' />
+              <p>{this.state.cityData.lon}</p>
+              <p>{this.state.cityData.lat}</p>
+            </ul>
         }
-
-
       </>
     )
   }
