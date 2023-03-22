@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Image from 'react-bootstrap/Image'
 import './App.css'
+import ListGroup from 'react-bootstrap/ListGroup';
 
 
 class App extends React.Component {
@@ -19,6 +20,23 @@ class App extends React.Component {
     this.setState({
       city: event.target.value
     })
+  }
+
+  handleSubmit = async (e) => {
+   e.preventDefault();
+  //TODO: USE AXIOS to hit the api (backend)
+  //TODO: Set info to state
+   try {
+    //http://localhost:3001/weather?city_name=Seattle
+    let url = `${process.env.REACT_APP_SERVER}/weather?city_name=${this.state.city}`
+
+    let cityData = await axios.get(url);
+
+    console.log(cityData.data);
+
+   } catch (error) {
+    console.log(error.message);
+   }
   }
 
   // ** async/await - handle our asynchronous code
@@ -72,12 +90,13 @@ class App extends React.Component {
           this.state.error
             ? <p>{this.state.errorMessage}</p>
             : Object.keys(this.state.cityData).length > 0 &&
-            <ul>
+            <ListGroup variant="flush">
               <p id="title">{this.state.cityData.display_name}</p>
               <Image class="img-fluid" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=13`} alt='Map of selected location' />
               <p>{this.state.cityData.lon}</p>
               <p>{this.state.cityData.lat}</p>
-            </ul>
+              </ListGroup>
+          
         }
       </>
     )
