@@ -17,7 +17,7 @@ class App extends React.Component {
       error: false,
       errorMessage: '',
       weatherData: [],
-      movieInfo: [],
+      movieInfo: []
     }
   }
 
