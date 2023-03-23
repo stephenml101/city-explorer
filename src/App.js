@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Image from 'react-bootstrap/Image'
 import './App.css'
-import ListGroup from 'react-bootstrap/ListGroup';
+import Badge from 'react-bootstrap/Badge'
 
 
 class App extends React.Component {
@@ -22,22 +22,6 @@ class App extends React.Component {
     })
   }
 
-  handleSubmit = async (e) => {
-   e.preventDefault();
-  //TODO: USE AXIOS to hit the api (backend)
-  //TODO: Set info to state
-   try {
-    //http://localhost:3001/weather?city_name=Seattle
-    let url = `${process.env.REACT_APP_SERVER}/weather?city_name=${this.state.city}`
-
-    let cityData = await axios.get(url);
-
-    console.log(cityData.data);
-
-   } catch (error) {
-    console.log(error.message);
-   }
-  }
 
   // ** async/await - handle our asynchronous code
   // ** try/catch - handle our errors - TRY resolve our successful promises & CATCH handle rejected promise
@@ -59,6 +43,11 @@ class App extends React.Component {
         error: false
       });
 
+      // TODO call weather handler
+      let lat = cityDataFromAxios.data[0].lat;
+      let lon = cityDataFromAxios.data[0].lon;
+      this.handleGetWeather(lat, lon)
+
     } catch (error) {
 
       // TODO: Set state with the error boolean and the error message
@@ -69,6 +58,23 @@ class App extends React.Component {
     }
 
   }
+
+  handleGetWeather = async (lat, lon) => {
+   
+    //TODO: USE AXIOS to hit the api (backend)
+    //TODO: Set info to state
+     try {
+      //http://localhost:3001/weather?city_name=Seattle&lat=${}&lon=${}
+      let url = `${process.env.REACT_APP_SERVER}/weather?city_name=${this.state.city}&lat=${lat}&lon=${lon}`;
+  
+      let weatherDataFromAxios = await axios.get(url);
+  
+      console.log('Weather: ', weatherDataFromAxios.data);
+  
+     } catch (error) {
+      console.log(error.message);
+     }
+    }
 
   // *** MAP PORTION OF YOUR LAB IMG SRC POINTS TO THIS URL: 
   // *** https://maps.locationiq.com/v3/staticmap?key=<YOUR API KEY>&center=<CITY'S LAT>,<CITY'S LON>&zoom=13
@@ -90,12 +96,12 @@ class App extends React.Component {
           this.state.error
             ? <p>{this.state.errorMessage}</p>
             : Object.keys(this.state.cityData).length > 0 &&
-            <ListGroup variant="flush">
-              <p id="title">{this.state.cityData.display_name}</p>
+            <ul>
+              <Badge id="title" bg="light" text="dark">{this.state.cityData.display_name}</Badge>
               <Image class="img-fluid" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=13`} alt='Map of selected location' />
-              <p>{this.state.cityData.lon}</p>
-              <p>{this.state.cityData.lat}</p>
-              </ListGroup>
+              <Badge class="badge" bg="light" text="dark">Lat {this.state.cityData.lon}</Badge>
+              <Badge class="badge" bg="light" text="dark">Lon {this.state.cityData.lat}</Badge>
+              </ul>
           
         }
       </>

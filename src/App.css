@@ -12,13 +12,22 @@ form{
   text-align: center;
 }
 
-p{
-  text-align: center;
-  color: azure;
+.badge{
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px !important;
+  justify-content: center;
+  display: block !important;
+  width: 10%;
 }
 
 #title{
-  color:black;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px !important;
+  justify-content: center;
+  display: block !important;
+  width: 25%;
 }
 
 img{
@@ -26,5 +35,6 @@ img{
  margin-right: auto;
  justify-content: center;
  display: block;
+ border-radius: 50px;
 }
 
