@@ -1,16 +1,21 @@
 # City Explorer
 
-**Stephen Levesque**
+**Author**: Stephen Levesque
 
+
+![drawing](/src/img/drawing.png)
 
 ## Overview
 
+- Users are directed to a site where they will put in a city name and a picture of that city, as well as weather and movie information will populate the page after they hit the explore button.
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+
+- Build a front-end and a back-end that will communicate with 3rd party API's
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+
+- There will be a simple search box witha title directing the user to type in that box. The background will have a travel related background. The map image will have rounded corners and the lat a lon will be displayed in a bootstrap component. The weather will be displayed below that in boxes and the movie information will be in a carousel.
 
 ## Change Log
 <!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
@@ -23,9 +28,20 @@
 
 Name of feature: City Explorer!
 
-Estimate of time needed to complete: 3 hours
+**March 22nd, 2023**
+
+- Estimate of time needed to complete: 3 hours
 Start time: 4pm
 
-Finish time: 8pm
+- Finish time: 8pm
 
-Actual time needed to complete: 4 hours
+- Actual time needed to complete: 4 hours
+
+**March 23rd, 2023**
+
+- Estimate of time needed to complete: 1 hour
+Start time: 2:30pm
+
+- Finish time: 4pm
+
+- Actual time needed to complete: 1:30 hours
