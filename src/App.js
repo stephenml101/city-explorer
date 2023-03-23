@@ -1,8 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import Image from 'react-bootstrap/Image'
-import './App.css'
-import Badge from 'react-bootstrap/Badge'
+import Image from 'react-bootstrap/Image';
+import './App.css';
+import Badge from 'react-bootstrap/Badge';
+import Weather from './Components/Weather';
+import Movies from './Components/Movies';
 
 
 class App extends React.Component {
@@ -12,7 +14,8 @@ class App extends React.Component {
       city: '',
       cityData: {},
       error: false,
-      errorMessage: ''
+      errorMessage: '',
+      weatherData: []
     }
   }
 
@@ -35,7 +38,7 @@ class App extends React.Component {
 
       let cityDataFromAxios = await axios.get(url);
 
-      console.log(cityDataFromAxios.data[0])
+      
 
       // TODO: Set State with the data that comes back from axios & set error boolean to false
       this.setState({
@@ -70,10 +73,33 @@ class App extends React.Component {
       let weatherDataFromAxios = await axios.get(url);
   
       console.log('Weather: ', weatherDataFromAxios.data);
+
+      this.setState({
+        weatherData: weatherDataFromAxios.data
+      })
   
      } catch (error) {
       console.log(error.message);
      }
+    }
+
+    getMovies = async () => {
+      try {
+        let url =`${process.env.REACT_APP_SERVER}/movies?searchQuery=${this.state.city}`
+        let movieDataFromAxios = await axios.get(url);
+        console.log(movieDataFromAxios.data);
+  
+        this.setState({
+          movieInfo: movieDataFromAxios.data
+        });
+  
+      } catch (error) {
+        console.log('getMovies' + error.message);
+        this.setState({
+          error: true,
+          errorMessage: error.message
+        })
+      }
     }
 
   // *** MAP PORTION OF YOUR LAB IMG SRC POINTS TO THIS URL: 
@@ -101,8 +127,10 @@ class App extends React.Component {
               <Image class="img-fluid" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=13`} alt='Map of selected location' />
               <Badge class="badge" bg="light" text="dark">Lat {this.state.cityData.lon}</Badge>
               <Badge class="badge" bg="light" text="dark">Lon {this.state.cityData.lat}</Badge>
+              <Weather weatherData={this.state.weatherData} />
+              <Movies movieInfo={this.state.movieInfo}/>
               </ul>
-          
+              
         }
       </>
     )
