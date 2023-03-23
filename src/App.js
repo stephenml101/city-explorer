@@ -130,7 +130,7 @@ class App extends React.Component {
               <Badge class="badge" bg="light" text="dark">Lat {this.state.cityData.lon}</Badge>
               <Badge class="badge" bg="light" text="dark">Lon {this.state.cityData.lat}</Badge>
               <Weather weatherData={this.state.weatherData} />
-              <Movies movieInfo={this.state.movieInfo} />
+              <Movies id= "movie" movieInfo={this.state.movieInfo} />
             </ul>
 
         }
