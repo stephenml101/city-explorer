@@ -3,8 +3,9 @@ import axios from 'axios';
 import Image from 'react-bootstrap/Image';
 import './App.css';
 import Badge from 'react-bootstrap/Badge';
-import Weather from './Components/Weather';
-import Movies from './Components/Movies';
+import Weather from './Weather';
+import Movies from './Movies';
+
 
 
 class App extends React.Component {
@@ -15,7 +16,8 @@ class App extends React.Component {
       cityData: {},
       error: false,
       errorMessage: '',
-      weatherData: []
+      weatherData: [],
+      movieInfo: [],
     }
   }
 
